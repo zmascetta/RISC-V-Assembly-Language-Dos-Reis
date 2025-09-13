@@ -1,0 +1,3 @@
+Convert .75 decimal to binary.
+
+0.11

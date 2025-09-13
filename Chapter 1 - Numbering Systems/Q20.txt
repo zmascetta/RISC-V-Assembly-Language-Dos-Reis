@@ -1,0 +1,10 @@
+Convert the following base 9 numbers to octal:
+
+base-9: 123
+octal: 146
+
+base-9: 777
+octal: 1437
+
+base-9: 100
+octal: 121

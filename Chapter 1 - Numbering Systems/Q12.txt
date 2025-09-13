@@ -1,0 +1,14 @@
+Subtract the following pairs of hexadecimal numbers. Give your answers in both hex and decimal.
+
+0 FFFF FFFF
+0 0000 0001 -
+-----------
+  FFFF FFFE
+  1111 1111 1111 1111 1111 1111 1111 1110
+
+
+996
+959 -
+-----
+ 3D
+ 0011 1101

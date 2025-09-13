@@ -1,0 +1,19 @@
+Add 8000 hex (-32768 decimal) and ffff hex (-1 decimal). 
+Represent the compouted result using 16 bits.
+  1000 0000 0000 0000
+  1111 1111 1111 1111 +
+  -------------------
+1 0111 1111 1111 1111
+
+0111 1111 1111 1111
+
+What is the sign of the computed result?
+Positive
+
+What is the sign of the true result?
+Negative
+
+Why is there a descrepancy between the computed result and the true result?
+16-bit width is not large enough to store the true result and does not account for the overflow. This results in the first bit being a 0 instead of a 1, changing the sign.
+
+

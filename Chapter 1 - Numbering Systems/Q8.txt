@@ -1,0 +1,25 @@
+Convert the following hexadecimal numbers into decimal:
+
+h: A0
+d: 160
+
+h: B0
+d: 176
+
+h: C0
+d: 192
+
+h: D0
+d: 208
+
+h: E0
+d: 224
+
+h: F0
+d: 240
+
+h: 400
+d: 1024
+
+h: 10000
+d: 65536

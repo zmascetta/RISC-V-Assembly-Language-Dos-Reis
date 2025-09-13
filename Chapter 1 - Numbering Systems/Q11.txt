@@ -1,0 +1,12 @@
+Add the following pairs of hexadecimal numbers:
+
+0 FFFF FFFF
+0 0000 0001 +
+-----------
+1 0000 0000
+
+
+  996
+  959 +
+-----
+ 12EF

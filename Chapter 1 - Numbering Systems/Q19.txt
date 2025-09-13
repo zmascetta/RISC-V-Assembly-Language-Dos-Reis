@@ -1,0 +1,10 @@
+Convert the following octal numbers to decimal:
+
+o: 123
+d: 83
+
+o: 777
+d: 511
+
+o: 100
+d: 64

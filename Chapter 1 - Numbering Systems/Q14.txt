@@ -1,0 +1,11 @@
+What is the next (and final) number in this sequence: 1000, 22, 20, 13, 12, 11, 10?
+
+8 in base-9. The base increases by 1 (starting at binary) and the number always equals 8.
+base-2 (1000) = 8
+base-3 (22) = 8
+base-4 (20) = 8
+base-5 (13) = 9
+base-6 (12) = 8
+base-7 (11) = 8
+base-8 (10) = 8
+base-9 (08) = 8

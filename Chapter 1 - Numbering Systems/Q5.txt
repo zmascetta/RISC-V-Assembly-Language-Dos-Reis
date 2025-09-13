@@ -1,0 +1,11 @@
+What is the range of 5-bit two's complement numbers?
+2^5 = 32
+-16 to 15
+
+9-bit?
+2^9 = 512
+-256 to 255
+
+11-bit?
+2^11 = 2048
+-1024 to 1023

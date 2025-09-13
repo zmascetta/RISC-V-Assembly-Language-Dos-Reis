@@ -1,0 +1,5 @@
+What is the range of 12-bit unsigned numbers?
+0-4095
+
+What is the range of 12-bit two's complement signed numbers?
+-2048 - 2047

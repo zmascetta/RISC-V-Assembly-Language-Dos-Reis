@@ -1,0 +1,3 @@
+Convert 0.111 binary to decimal.
+
+.875
