@@ -1,0 +1,26 @@
+rv Version 3.5                        Mon Sep 29 15:51:54 2025
+Zach Mascetta
+
+Header
+R
+C
+
+Loc   Code
+0000  0e000280 
+0004  04028000 
+0008  02000000 
+000c  06028000 
+0010  02000000 
+0014  08028000 
+0018  00000000 
+======================================================= Output
+-1
+-1
+4294967295
+ffffffff
+=========================================== Program statistics
+Input file name       = c02q03.bin
+Instructions executed = 7 (decimal)
+Program size          = 1c (hex) 28 (decimal)
+Load point            = 0 (hex) 0 (decimal)
+Programmer            = Zach Mascetta
