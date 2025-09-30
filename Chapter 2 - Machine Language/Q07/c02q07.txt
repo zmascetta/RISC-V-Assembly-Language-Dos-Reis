@@ -1,0 +1,6 @@
+Why do the output instructions use the rs1 field but the input instructions use the rd field?
+
+An output, in the general sense, indicates you are taking something from a source and then outputting it somewhere else. 
+Similarly, an input, in the general sense, indicates you are capturing something then storing it in a destination.
+The output instructions use the rs1 field since that is a source register. You are identifying the source of what you wish to output.
+The input instructions use the rd field since that is a destination register. You are identifying the destination that should be used to store the input you are capturing.

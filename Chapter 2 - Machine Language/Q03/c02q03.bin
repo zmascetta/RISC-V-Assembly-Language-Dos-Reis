@@ -1,3 +1,9 @@
+# Write and run a machine language program that reads in a decimal number (use din).
+# Output the number read in with dout, udout, and hout. udout (unsigned decimal out) works like
+# dout except it treats the number in the specified register as an unsigned number (dout treats
+# the number as a signed number). Display each number on a separate line.
+# Test your program with -1 and 15.
+
 0000111 00000 00000 000 00101 0000000 # din rd = t0
 0000010 00000 00101 000 00000 0000000 # dout rs1 = t0
 0000001 00000 00000 000 00000 0000000 # newline

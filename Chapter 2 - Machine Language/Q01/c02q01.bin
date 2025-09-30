@@ -1,3 +1,5 @@
+# Write and run a machine language program in binary that adds 1, 200, and 500 and displays the sum in decimal and hex.
+
 0000000 00001 00000 000 00101 0010011 # addi rd = t0, rs1 = x0, i = 1
 0000110 01000 00101 000 00101 0010011 # addi rd = t0, rs1 = t0, i = 200
 0001111 10100 00101 000 00101 0010011 # addi rd = t0, rs1 = t0, i = 500

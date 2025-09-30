@@ -1,0 +1,3 @@
+There is no subtract immediate instruction in the RISC-V instruction set. Why?
+
+Immediate values are always signed extended. Thus, a negative number can be used as an immediate value, negating the need for a sub immediate instruction.

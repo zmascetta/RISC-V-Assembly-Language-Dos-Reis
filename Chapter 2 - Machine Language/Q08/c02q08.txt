@@ -1,0 +1,5 @@
+An unconditional transfer of control can be provided by either a jal instruction or a beq instruction whose rs1 and rs2 both specify x0.
+Is there any advantage to using the jal instruction compared with the beq instruction?
+
+A jal instruction will automatically store the next memory location in the rd register (the norm being to store in ra), compared to a beq instruction which does not.
+If you plan to return to your location in instruction memory at some point after your jump (such as when calling a subroutine), then the jal instruction is advantageous as it makes returning to your location (via a jalr instruction) extremely easy.

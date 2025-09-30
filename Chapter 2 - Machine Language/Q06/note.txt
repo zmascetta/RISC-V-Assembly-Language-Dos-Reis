@@ -1,0 +1,3 @@
+I was unsure whether the running total should be displayed after each number is added, or if only the final sum should be displayed.
+
+I included both versions, with the v1 directory having the version that shows the running total, and v2 having the version that only shows the final total.

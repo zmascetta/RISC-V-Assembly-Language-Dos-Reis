@@ -1,0 +1,4 @@
+There is no bgt instruction in the RISC-V instruction set. Why?
+
+There is no bgt instruction because an equivalent logical comparison can always be made by reversing the operands and using a blt intruction.
+Likewise, there is no less than or equal since a bge instruction with reversed operands can be used.
