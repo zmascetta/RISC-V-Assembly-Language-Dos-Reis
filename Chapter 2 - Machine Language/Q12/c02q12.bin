@@ -1,0 +1,23 @@
+# Same as problem 11, but use lw instructions.
+# Addresses have been included to illustrate offset needed for lw instr.
+
+# load 80000001 from data into t0
+000000011000 00011 010 00101 0000011 # address: 0, lw rd = t0, rs1 = gp, imm = 24
+# load 12345fff from data into t1
+000000011100 00011 010 00111 0000011 # address: 4, lw rd = t1, rs1 = gp, imm = 28
+
+
+# Print hex value in t0
+0000100 00000 00101 000 00000 0000000 # address: 8, hout rs1 = t0
+# Print newline
+0000001 00000 00000 000 00000 0000000 # address: 12, newline
+
+# Print hex value in t1
+0000100 00000 00111 000 00000 0000000 # address: 16, hout rs1 = t1
+
+# End program
+0000000 00000 00000 000 00000 0000000 # address: 20, halt
+
+# Data
+10000000000000000000000000000001 # address: 24, data
+00010010001101000101111111111111 # address: 28, data

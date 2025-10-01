@@ -1,0 +1,5 @@
+What is the most positive number that can be loaded into a register with an addi instruction? What is the most negative?
+
+An addi instruction uses a signed, 12-bit wide binary number. The range is 2^12.
+The most positive number is 011111111111 or 2047.
+The most negative number is 100000000000 or -2048.

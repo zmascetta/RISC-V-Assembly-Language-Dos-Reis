@@ -1,0 +1,22 @@
+# Write and run a machine language program that reads in two numbers and displays the larger.
+
+# This program assumes a decimal number is entered.
+
+# Enter num 1
+0000111 00000 00000 000 00101 0000000 # din rd = t0
+# Enter num 2
+0000111 00000 00000 000 00111 0000000 # din rd = t1
+
+# Perform bge comp. If true, branch forward 3 instructions
+0000000 00101 00111 110 01100 1100011 # blt rs1 = t0, rs2 = t1, offset = 12
+
+# Display smaller number
+0000010 00000 00111 000 00000 0000000 # dout rs1 = t1
+# End program
+0000000 00000 00000 000 00000 0000000 # halt
+
+# Display larger number
+0000010 00000 00101 000 00000 0000000 # dout rs1 = t0
+# End program
+0000000 00000 00000 000 00000 0000000 # halt
+

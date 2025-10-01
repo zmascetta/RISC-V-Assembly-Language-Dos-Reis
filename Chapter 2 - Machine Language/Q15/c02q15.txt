@@ -1,0 +1,3 @@
+Is the funct3 field in the input and output instructions ignored, or does it have to be set to all 0's?
+
+The input and output instructions are R-type instructions. Since the R-type instruction utilizes the func3 field, it is not ignored and must be set to all 0's.

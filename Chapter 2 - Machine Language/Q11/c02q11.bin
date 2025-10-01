@@ -1,0 +1,31 @@
+# Write a program that loads t0 with 80000001 hex and t1 with 12345fff hex,
+# and then displays the two register in hex. Use a lui-addi sequence to load each number.
+# Are you encountering an unanticipated difficutly load 12345fff?
+
+# 12345fff's lower bits are 111111111111. Since immediates are signed, this is equal to -1.
+# The value that is printed is 12344fff, which is the result of 12345000 minus 1.
+# Page 31 indicates that a pseudoinstruction in Chapter 4 presents the solution to this issue.
+
+# 80000001 hex = 10000000000000000000 000000000001 b
+# 12345fff hex = 00010010001101000101 111111111111 b
+
+# Load upper imm. for 80000001
+10000000000000000000 00101 0110111 # lui rd = t0
+# Add imm. for 80000001
+0000000 00001 00101 000 00101 0010011 # addi rd = t0, rs1 = t0
+
+# Load upper imm. for 12345fff
+00010010001101000101 00111 0110111 # lui rd = t1
+# Add imm. for 12345fff
+1111111 11111 00111 000 00111 0010011 # addi rd = t1, rs1 = t1
+
+# Print hex value in t0
+0000100 00000 00101 000 00000 0000000 # hout rs1 = t0
+# Print newline
+0000001 00000 00000 000 00000 0000000 # newline
+
+# Print hex value in t1
+0000100 00000 00111 000 00000 0000000 # hout rs1 = t1
+
+# End program
+0000000 00000 00000 000 00000 0000000 # halt

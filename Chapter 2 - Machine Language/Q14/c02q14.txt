@@ -1,0 +1,12 @@
+Why do the lw and sw instructions have different formats?
+
+lw and sw instructions perform fundamentally different functions.
+sw stores a word from a register into a memory location, while lw loads a word from a memory location in a register.
+Because they perform different functions, their instructions need to contain different pieces of information in order to execute these functions (e.g., sw doesn't store in a register, therefore it does not need an rd field).
+
+Why do the jump instructions not use the U-type format?
+jal instructions use a J-type instruction. The J-type instruction (as well as the B-type) is a variation of the U-type. These instructions are shifted left by 1-bit in order to increase the addresses by 2 and to give jumps and branches a greater range. Their bits are rotated from a natural placement to reduce the instruction signal fanout and immediate multiplexing cost by almost a factor for two which again simplifies datapath logi on low-end implementations.*
+
+On the other hand, jalr uses the I-type. This is because the jalr instruction uses its rs1 field to reference an address already stored in a register (usually ra) instead of storing the address in the immediate field. It then adds the offset (in the immediate field) to the rs1 field to get the effective address to jump to.
+
+*Quoted from p. 17 of The RISC-V Reader by Patterson & Waterman
