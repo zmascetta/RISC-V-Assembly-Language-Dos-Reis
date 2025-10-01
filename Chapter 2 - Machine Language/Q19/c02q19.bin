@@ -1,0 +1,12 @@
+# Write and run a machine language program that reads in a hex number, flips all the bits in its binary representation, and then displays the flipped version in hex.
+
+# Read number
+0001000 00000 00000 000 00101 0000000 # hin rd = t0
+
+# Perform bitwise flip with xor
+1111111 11111 00101 100 00101 0010011 # xori rd = t0, rs1 = t0
+
+# Print number
+0000100 00000 00101 000 00000 0000000 # hout rs1 = t0
+# End program
+0000000 00000 00000 000 00000 0000000 # halt

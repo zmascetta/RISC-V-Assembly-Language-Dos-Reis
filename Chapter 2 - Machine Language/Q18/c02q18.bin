@@ -1,0 +1,15 @@
+# Write and run a machine language program that reads in a decimal number an displays its negation.
+
+# Read number
+0000111 00000 00000 000 00101 0000000 # din rd = t0
+
+# Perform bitwise flip with xor
+1111111 11111 00101 100 00110 0010011 # xori rd = t1, rs1 = t0
+
+# Add 1
+0000000 00001 00110 000 00110 0010011 # addi rd = t1, rs1 = t1, imm = 1
+
+# Print number
+0000010 00000 00110 000 00000 0000000 # dout rs1 = t1
+# End program
+0000000 00000 00000 000 00000 0000000 # halt

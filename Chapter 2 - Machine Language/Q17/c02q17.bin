@@ -1,0 +1,21 @@
+# Write and run a machine language program that reads in a number and displays 7 times its value. Do NOT do this by summing seven occurences of the number.
+
+# Note, this programs assume decimal numbers are entered.
+
+# Read number
+0000111 00000 00000 000 00101 0000000 # din rd = t0
+
+# Shift left by 1, store in t1
+0000000 00001 00101 001 00110 0010011 # slli rd = t1, rs1 = t0, imm = 1
+# Shift left by 2, store in t2
+0000000 00010 00101 001 00111 0010011 # slli rd = t2, rs1 = t0, imm = 2
+
+# Add t0 and t1, write to t0
+0000000 00110 00101 000 00101 0110011 # add rd = t0, rs1 = t0, rs2 = t1
+# Add t0 and t2, write to t0
+0000000 00111 00101 000 00101 0110011 # add rd = t0, rs1 = t0, rs2 = t1
+
+# Print number
+0000010 00000 00101 000 00000 0000000 # dout rs1 = t0
+# End program
+0000000 00000 00000 000 00000 0000000 # halt

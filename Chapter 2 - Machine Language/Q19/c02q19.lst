@@ -1,0 +1,21 @@
+rv Version 3.5                        Wed Oct  1 19:10:25 2025
+Zach Mascetta
+
+Header
+R
+C
+
+Loc   Code
+0000  10000280 
+0004  fff2c293 
+0008  08028000 
+000c  00000000 
+======================================================= Output
+1
+fffffffe
+=========================================== Program statistics
+Input file name       = c02q19.bin
+Instructions executed = 4 (decimal)
+Program size          = 10 (hex) 16 (decimal)
+Load point            = 0 (hex) 0 (decimal)
+Programmer            = Zach Mascetta
