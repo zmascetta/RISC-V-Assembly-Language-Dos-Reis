@@ -5,27 +5,28 @@
 # t2 = count
 # t3 = 15
 
-# initialize t0 with 1
+# Initialize t0 with 1
 0000000 00001 00000 000 00101 0010011 # addi rd = t0, rs1 = x0, i = 1
-# initialize t1 with 0
+# Initialize t1 with 0
 0000000 00000 00000 000 00110 0010011 # addi rd = t1, rs1 = x0, i = 0
-# initialize t2 with 0
+# Initialize t2 with 0
 0000000 00000 00000 000 00111 0010011 # addi rd = t2, rs1 = x0, i = 0
-# initialize t3 with 16
+# Initialize t3 with 16
 0000000 01111 00000 000 11100 0010011 # addi rd = t3, rs1 = x0, i = 16
 
-# add num to running total
+# Add num to running total
 0000000 00101 00110 000 00110 0110011 # add rd = t1, rs1 = t1, rs2 = t0
-# print running total
+# Print running total
 0000010 00000 00110 000 00000 0000000 # dout rs1 = t0
-# print newline
+# Print newline
 0000001 00000 00000 000 00000 0000000 # newline
 
-# increment count by 1
+# Increment count by 1
 0000000 00001 00111 000 00111 0010011 # addi rd = t2, rs1 = t2, i = 1
-# increment number by 2
+# Increment number by 2
 0000000 00010 00101 000 00101 0010011 # addi rd = t0, rs1 = t0, i = 2
-# branch if count < 15
+# Branch if count < 15
 1111111 11100 00111 110 01101 1100011 # blt rs1 = t2, rs2 = t3, offset = -20
 
+# End program
 0000000 00000 00000 000 00000 0000000 # halt

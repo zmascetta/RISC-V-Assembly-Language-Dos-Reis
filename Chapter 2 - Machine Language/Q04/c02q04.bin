@@ -1,8 +1,14 @@
 # Write and run a machine language program that displays the numbers 100 to 1, each on a separate line. Use a loop.
 
+# Store 100 in t0
 0000011 00100 00000 000 00101 0010011 # addi rd = t0, rs1 = x0, i = 100
+# Print current decimal value in t0
 0000010 00000 00101 000 00000 0000000 # dout rs1 = t0
+# Newline
 0000001 00000 00000 000 00000 0000000 # newline
+# Subtract 1 from t0 and store new value in t0
 1111111 11111 00101 000 00101 0010011 # addi rd = t0, rs1 = t0, i = -1
+# Loop - Branch if 0 (x0) is less than current value of t0
 1111111 00101 00000 110 10101 1100011 # blt rs1 = x0, rs2 = t0, offset = -12
+# End program
 0000000 00000 00000 000 00000 0000000 # halt

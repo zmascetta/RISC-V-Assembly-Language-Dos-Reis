@@ -4,10 +4,17 @@
 # the number as a signed number). Display each number on a separate line.
 # Test your program with -1 and 15.
 
+# Read in decimal num and store in t0
 0000111 00000 00000 000 00101 0000000 # din rd = t0
+# Print decimal value in t0
 0000010 00000 00101 000 00000 0000000 # dout rs1 = t0
+# Newline
 0000001 00000 00000 000 00000 0000000 # newline
+# Print unsigned decimal value in t0
 0000011 00000 00101 000 00000 0000000 # udout rs1 = t0
+# Newline
 0000001 00000 00000 000 00000 0000000 # newline
+# Print hex value in t0
 0000100 00000 00101 000 00000 0000000 # hout rs1 = t0
+# End program
 0000000 00000 00000 000 00000 0000000 # halt
