@@ -1,0 +1,58 @@
+rv Version 3.5                        Fri Oct  3 16:04:49 2025
+Zach Mascetta
+
+Header
+R
+A 00000020
+A 00000040
+C
+
+Loc     Code         Source Code
+
+               # t0 = number
+               # t1 = name
+               # t2 = prompt
+
+0000  0401a303         lw t1, aname        # load name
+0004  0201a383         lw t2, aprompt      # load prompt
+0008  0c038000         sout t2             # prompt user for num
+000c  0e000280         din t0              # get number
+
+0010  0c030000 loop:   sout t1             # print name
+0014  fff28293         addi t0, t0, -1     # decrement counter
+0018  fe501ce3         bne x0, t0, loop    # compare, brach if c
+001c  00000000         halt                # end program
+
+0020  00000024 aprompt:    .word prompt
+0024  65746e45 prompt:     .asciz "Enter a positive number: "
+0028  20612072
+002c  69736f70
+0030  65766974
+0034  6d756e20
+0038  3a726562
+003c  00000020
+
+0040  00000044 aname:      .word name     
+0044  6863615a name:       .asciz "Zach Mascetta\n"
+0048  73614d20
+004c  74746563
+0050  00000a61
+======================================================= Output
+Enter a positive number: 10
+Zach Mascetta
+Zach Mascetta
+Zach Mascetta
+Zach Mascetta
+Zach Mascetta
+Zach Mascetta
+Zach Mascetta
+Zach Mascetta
+Zach Mascetta
+Zach Mascetta
+
+=========================================== Program statistics
+Input file name       = c02q02.a
+Instructions executed = 35 (decimal)
+Program size          = 54 (hex) 84 (decimal)
+Load point            = 0 (hex) 0 (decimal)
+Programmer            = Zach Mascetta

@@ -1,0 +1,20 @@
+
+# t0 = number
+# t1 = name
+# t2 = prompt
+
+        lw t1, aname        # load name
+        lw t2, aprompt      # load prompt
+        sout t2             # prompt user for num
+        din t0              # get number
+
+loop:   sout t1             # print name
+        addi t0, t0, -1     # decrement counter
+        bne x0, t0, loop    # compare, brach if counter != 0
+        halt                # end program
+
+aprompt:    .word prompt
+prompt:     .asciz "Enter a positive number: "
+
+aname:      .word name     
+name:       .asciz "Zach Mascetta\n"
