@@ -1,0 +1,29 @@
+# t0 = number
+# t1 = running total
+# t2 = loop counter
+# t3 = prompt
+# t4 = total string
+
+                addi t1, x0, 0          # init running total to 0
+                addi t2, x0, 0          # init loop counter to 0
+
+                lw t3, aprompt          # init prompt
+                sout t3                 # print prompt
+                din t0                  # capture num
+                blt x0, t0, loop
+                halt
+
+loop:           addi t2, t2, 1          # increment loop counter by 1
+                add t1, t1, t2         # add current number to total
+                bne t0, t2, loop
+
+print_total:    lw t4, atotal
+                sout t4                 # print total string
+                dout t1                 # print total
+                halt
+
+aprompt:    .word   prompt
+prompt:     .asciz  "Please enter a positive number: "
+
+atotal:     .word   total
+total:      .asciz "Total: "

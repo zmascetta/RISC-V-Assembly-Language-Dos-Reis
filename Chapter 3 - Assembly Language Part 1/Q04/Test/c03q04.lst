@@ -1,0 +1,57 @@
+rv Version 3.5                        Fri Oct  3 18:58:02 2025
+Zach Mascetta
+
+Header
+R
+A 00000038
+A 00000060
+C
+
+Loc     Code         Source Code
+               # t0 = number
+               # t1 = running total
+               # t2 = loop counter
+               # t3 = prompt
+               # t4 = total string
+
+0000  00000313                 addi t1, x0, 0          # init ru
+0004  00000393                 addi t2, x0, 0          # init lo
+
+0008  0381ae03                 lw t3, aprompt          # init pr
+000c  0c0e0000                 sout t3                 # print p
+0010  0e000280                 din t0                  # capture
+0014  00504463                 blt x0, t0, loop
+0018  00000000                 halt
+
+001c  00138393 loop:           addi t2, t2, 1          # increme
+0020  00730333                 add t1, t1, t2         # add curr
+0024  fe729ce3                 bne t0, t2, loop
+
+0028  0601ae83 print_total:    lw t4, atotal
+002c  0c0e8000                 sout t4                 # print t
+0030  04030000                 dout t1                 # print t
+0034  00000000                 halt
+
+0038  0000003c aprompt:    .word   prompt
+003c  61656c50 prompt:     .asciz  "Please enter a positive numb
+0040  65206573
+0044  7265746e
+0048  70206120
+004c  7469736f
+0050  20657669
+0054  626d756e
+0058  203a7265
+005c  00000000
+
+0060  00000064 atotal:     .word   total
+0064  61746f54 total:      .asciz "Total: "
+0068  00203a6c
+======================================================= Output
+Please enter a positive number: 10
+Total: 55
+=========================================== Program statistics
+Input file name       = c03q04.a
+Instructions executed = 40 (decimal)
+Program size          = 6c (hex) 108 (decimal)
+Load point            = 0 (hex) 0 (decimal)
+Programmer            = Zach Mascetta
