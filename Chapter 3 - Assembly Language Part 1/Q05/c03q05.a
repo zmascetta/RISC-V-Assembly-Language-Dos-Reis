@@ -1,0 +1,35 @@
+# Write and run an assembly language program that displays a table of ASCII codes from 32 to 126 and their corresponding characters.
+
+# t0 = current num
+# t1 = 127
+# t2 = header string
+# t3 = spacer
+# t4 = header
+# t5 = newline
+
+        addi t0, x0, 32     # init current num. with 32
+        addi t1, x0, 127    # init 127
+        lw t3, aspacer      # load spacer
+        lw t4, aheader      # load header
+        lw t5, anewline     # load newline
+        sout t4             # print header
+
+loop:   dout t0             # print decimal number
+        sout t3             # print spacer
+        aout t0             # print ASCII
+        sout t5             # print newline
+        addi t0, t0, 1      # increment current number by 1
+        bne t0, t1, loop    # loop
+
+        halt                # end program
+
+
+
+aheader:       .word    header
+header:        .asciz   "Decimal\t\tASCII\n"
+
+aspacer:        .word   spacer
+spacer:         .asciz  "\t\t"
+
+anewline:       .word   newline
+newline:        .asciz  "\n"

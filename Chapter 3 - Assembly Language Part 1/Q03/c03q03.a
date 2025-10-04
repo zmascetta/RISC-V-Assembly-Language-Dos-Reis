@@ -1,3 +1,7 @@
+# Write and run an assembly language proram that repeatedly prompts for and reads in decimal numbers until a negative number is entered,
+# at which point your program should display the sum of all the numbers previously entered. Test your program by entering 1, 2, 3, -1 
+# (the sum displayed should be 6).
+
 # t0 = current number
 # t1 = running total
 # t2 = prompt

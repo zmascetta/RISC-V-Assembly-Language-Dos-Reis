@@ -1,0 +1,36 @@
+# Write and run an assembly language program that reads in 10 decimal numbers and displays the largest.
+# Test your program by entering, 3, 100, -30, -50, 101, 99,0, -1, 5, 77.
+
+# t0 = current number
+# t1 = highest number
+# t2 = count
+# t3 = prompt
+# t4 = largest num. label
+
+
+                addi t2, x0, 9          # init count = 9 (perform loop 9 times after initial number is entered)
+                lw t3, aprompt          # init prompt
+                lw t4, alabel           # init num. label
+                sout t3                 # prompt for number
+                din t0                  # input number
+                addi t1, t0, 0          # set initial highest number to current num
+
+loop:           sout t3                 # prompt for number
+                din t0                  # input number
+                blt t1, t0, update_num  # branch if highest num. is smaller than current num to update num
+
+update_count:   addi t2, t2, -1         # decrement counter
+                bne x0, t2, loop        # loop
+
+                sout t4                 # print label
+                dout t1                 # print largest number
+                halt                    # end program
+
+update_num:     addi t1, t0, 0          # update highest number
+                jal ra, update_count    # jump to update count to continue loop
+
+aprompt:    .word   prompt
+prompt:     .asciz  "Please enter a number: "
+
+alabel:     .word   label
+label:      .asciz  "Largest number: "

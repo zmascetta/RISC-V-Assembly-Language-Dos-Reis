@@ -1,3 +1,6 @@
+# Write and run an assembly language program that reads in a positive number and displays your name that nmber of times.
+# Test your program by entering 10.
+
 # t0 = number
 # t1 = name
 # t2 = prompt
