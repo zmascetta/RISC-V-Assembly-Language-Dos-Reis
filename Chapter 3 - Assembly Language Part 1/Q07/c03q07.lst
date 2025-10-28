@@ -1,0 +1,110 @@
+rv Version 3.5                        Tue Oct 28 17:13:35 2025
+Zach Mascetta
+
+Header
+R
+A 00000098
+A 000000b4
+A 000000d0
+A 000000ec
+C
+
+Loc     Code         Source Code
+               # Write and run an assembly language program that
+               # It should then call subroutine 1, passing it th
+               # Subroutine 1 should display the string whose ad
+               # and then call subroutine 2, passing it the addr
+               # Subroutine 2 should then display the string who
+               # Test your program with "Aa1Bb2Cc3{+".
+
+               #   a0 = buffer
+               #   t0 = character from buffer
+               #   t1 = lower bound for character check
+               #   t2 = upper bound for character check
+               #   t3 = 10 check for newline 
+               #   t4 = prompt
+               #   t5 = label
+
+0000  04100313                 addi t1, x0, 65                 #
+0004  05b00393                 addi t2, x0, 91                 #
+0008  00a00e13                 addi t3, x0, 10                 #
+000c  0981ae83                 lw t4, aprompt                  #
+0010  0c0e8000                 sout t4                         #
+0014  0ec1a503                 lw a0, abuffer                  #
+0018  14050000                 sin a0                          #
+
+001c  00050283                 lb t0, 0(a0)                    #
+0020  038000ef                 jal ra, subroutine_1            #
+0024  0ec1a503                 lw a0, abuffer                  #
+0028  0b41af03                 lw t5, asr1_label               #
+002c  0c0f0000                 sout t5                         #
+0030  0c050000                 sout a0                         #
+
+0034  00050283                 lb t0, 0(a0)                    #
+0038  06100313                 addi t1, x0, 97                 #
+003c  07a00393                 addi t2, x0, 122                #
+0040  038000ef                 jal ra, subroutine_2            #
+0044  0ec1a503                 lw a0, abuffer                  #
+0048  0d01af03                 lw t5, asr2_label               #
+004c  0c0f0000                 sout t5                         #
+0050  0c050000                 sout a0                         #
+
+0054  00000000                 halt                            #
+
+0058  0062c863 subroutine_1:   blt t0, t1, 16(subroutine_1)    #
+005c  0072d463                 bge t0, t2, 12(subroutine_1)    #
+0060  0202e293                 ori t0, t0, 0x20                #
+0064  00550023                 sb t0, 0(a0)                    #
+0068  00150513                 addi a0, a0, 1                  #
+006c  00050283                 lb t0, 0(a0)                    #
+0070  ffc294e3                 bne t0, t3, 0(subroutine_1)     #
+0074  00008067                 jalr x0, 0(ra)                  #
+
+0078  0062c863 subroutine_2:   blt t0, t1, 16(subroutine_2)    #
+007c  0072d463                 bge t0, t2, 12(subroutine_2)    #
+0080  0df2f293                 andi t0, t0, 0xdf               #
+0084  00550023                 sb t0, 0(a0)                    #
+0088  00150513                 addi a0, a0, 1                  #
+008c  00050283                 lb t0, 0(a0)                    #
+0090  ffc294e3                 bne t0, t3, 0(subroutine_2)     #
+0094  00008067                 jalr x0, 0(ra)                  #
+
+
+0098  0000009c aprompt:        .word   prompt
+009c  61656c50 prompt:         .asciz  "Please enter a string: "
+00a0  65206573
+00a4  7265746e
+00a8  73206120
+00ac  6e697274
+00b0  00203a67
+
+00b4  000000b8 asr1_label:     .word   sr1_label
+00b8  69727453 sr1_label:      .asciz  "String (subroutine_1): "
+00bc  2820676e
+00c0  72627573
+00c4  6974756f
+00c8  315f656e
+00cc  00203a29
+
+00d0  000000d4 asr2_label:     .word   sr2_label
+00d4  69727453 sr2_label:      .asciz  "String (subroutine_2): "
+00d8  2820676e
+00dc  72627573
+00e0  6974756f
+00e4  325f656e
+00e8  00203a29
+
+00ec  000000f0 abuffer:        .word   buffer
+00f0  00000000 buffer:         .zero   100
+0150  00000000
+======================================================= Output
+Please enter a string: Aa1Bb2Cc3{+
+String (subroutine_1): aa1bb2cc3{+
+String (subroutine_2): AA1BB2CC3{+
+
+=========================================== Program statistics
+Input file name       = c03q07.a
+Instructions executed = 149 (decimal)
+Program size          = 154 (hex) 340 (decimal)
+Load point            = 0 (hex) 0 (decimal)
+Programmer            = Zach Mascetta

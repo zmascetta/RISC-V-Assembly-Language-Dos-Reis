@@ -1,0 +1,71 @@
+# Write and run an assembly language program that prompts for and reads in a string.
+# It should then call subroutine 1, passing it the address of the string in a0.
+# Subroutine 1 should display the string whose address it is passed with all uppercase letters changed to lowercase,
+# and then call subroutine 2, passing it the address of the modified string in a0.
+# Subroutine 2 should then display the string whose address it is passed with all letters in uppercase.
+# Test your program with "Aa1Bb2Cc3{+".
+
+#   a0 = buffer
+#   t0 = character from buffer
+#   t1 = lower bound for character check
+#   t2 = upper bound for character check
+#   t3 = 10 check for newline 
+#   t4 = prompt
+#   t5 = label
+
+                addi t1, x0, 65                 # set lower bound for comparison to check for uppercase
+                addi t2, x0, 91                 # set upper bound for comparison to check for uppercase
+                addi t3, x0, 10                 # set value to check if end of string
+                lw t4, aprompt                  # load prompt
+                sout t4                         # display prompt
+                lw a0, abuffer                  # load buffer for string
+                sin a0                          # get string
+                
+                lb t0, 0(a0)                    # load first character of string
+                jal ra, subroutine_1            # jump to subr_1
+                lw a0, abuffer                  # set a0 back to address of first char of string
+                lw t5, asr1_label               # load label
+                sout t5                         # print label
+                sout a0                         # print string
+
+                lb t0, 0(a0)                    # load first character of string
+                addi t1, x0, 97                 # set lower bound for comparison to check for lowercase
+                addi t2, x0, 122                # set upper bound for comparison to check for lowercase
+                jal ra, subroutine_2            # jump to subr_2
+                lw a0, abuffer                  # set a0 back to address of first char of string
+                lw t5, asr2_label               # load label
+                sout t5                         # print label
+                sout a0                         # print string
+                
+                halt                            # end program
+
+subroutine_1:   blt t0, t1, 16(subroutine_1)    # branch if less than/equal 65 +20
+                bge t0, t2, 12(subroutine_1)    # branch if greater than 90 + 16
+                ori t0, t0, 0x20                # transform to lowercase
+                sb t0, 0(a0)                    # store new value 
+                addi a0, a0, 1                  # increment address by 1 byte
+                lb t0, 0(a0)                    # load new value
+                bne t0, t3, 0(subroutine_1)     # if value not 10 (newline), branch to beginning of subroutine
+                jalr x0, 0(ra)                  # return to main
+
+subroutine_2:   blt t0, t1, 16(subroutine_2)    # branch if less than/equal 97, +20
+                bge t0, t2, 12(subroutine_2)    # branch if greater than 112, +16
+                andi t0, t0, 0xdf               # transform to uppercase
+                sb t0, 0(a0)                    # store new value 
+                addi a0, a0, 1                  # increment address by 1 byte
+                lb t0, 0(a0)                    # load new value
+                bne t0, t3, 0(subroutine_2)     # if value not 10 (newline), branch to beginning of subroutine
+                jalr x0, 0(ra)                  # return to main
+
+
+aprompt:        .word   prompt
+prompt:         .asciz  "Please enter a string: "
+
+asr1_label:     .word   sr1_label
+sr1_label:      .asciz  "String (subroutine_1): "
+
+asr2_label:     .word   sr2_label
+sr2_label:      .asciz  "String (subroutine_2): "
+
+abuffer:        .word   buffer
+buffer:         .zero   100
