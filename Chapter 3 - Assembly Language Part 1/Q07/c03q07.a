@@ -40,7 +40,7 @@
                 halt                            # end program
 
 subroutine_1:   blt t0, t1, 16(subroutine_1)    # branch if less than/equal 65 +20
-                bge t0, t2, 12(subroutine_1)    # branch if greater than 90 + 16
+                bge t0, t2, 16(subroutine_1)    # branch if greater than 90 + 16
                 ori t0, t0, 0x20                # transform to lowercase
                 sb t0, 0(a0)                    # store new value 
                 addi a0, a0, 1                  # increment address by 1 byte
@@ -49,7 +49,7 @@ subroutine_1:   blt t0, t1, 16(subroutine_1)    # branch if less than/equal 65 +
                 jalr x0, 0(ra)                  # return to main
 
 subroutine_2:   blt t0, t1, 16(subroutine_2)    # branch if less than/equal 97, +20
-                bge t0, t2, 12(subroutine_2)    # branch if greater than 112, +16
+                bge t0, t2, 16(subroutine_2)    # branch if greater than 112, +16
                 andi t0, t0, 0xdf               # transform to uppercase
                 sb t0, 0(a0)                    # store new value 
                 addi a0, a0, 1                  # increment address by 1 byte

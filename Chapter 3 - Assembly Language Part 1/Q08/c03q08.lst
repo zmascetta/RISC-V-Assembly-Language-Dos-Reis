@@ -1,0 +1,75 @@
+rv Version 3.5                        Tue Oct 28 17:47:26 2025
+Zach Mascetta
+
+Header
+R
+A 0000004c
+A 00000068
+A 00000080
+C
+
+Loc     Code         Source Code
+               # Write and run an assembly language program that
+               # and passes its address to a subroutine via a0. 
+               # Your subroutine should then display all and onl
+               # Test your program with "Aa1Bb2Cc3{+".
+
+               #   a0 = buffer
+               #   t0 = character from buffer
+               #   t1 = lower bound for character check
+               #   t2 = upper bound for character check
+               #   t3 = 10 check for newline 
+               #   t4 = prompt
+               #   t5 = label
+
+0000  03000313                 addi t1, x0, 48                 #
+0004  03900393                 addi t2, x0, 57                 #
+0008  00a00e13                 addi t3, x0, 10                 #
+000c  04c1ae83                 lw t4, aprompt                  #
+0010  0c0e8000                 sout t4                         #
+0014  0801a503                 lw a0, abuffer                  #
+0018  14050000                 sin a0                          #
+
+001c  00050283                 lb t0, 0(a0)                    #
+0020  0681af03                 lw t5, alabel               # loa
+0024  0c0f0000                 sout t5                         #
+0028  008000ef                 jal ra, subroutine              #
+
+002c  00000000                 halt                            #
+
+0030  0062c663 subroutine:     blt t0, t1, 12(subroutine)       
+0034  0072d463                 bge t0, t2, 12(subroutine)       
+0038  0a028000                 aout t0                         #
+003c  00150513                 addi a0, a0, 1                  #
+0040  00050283                 lb t0, 0(a0)                    #
+0044  ffc296e3                 bne t0, t3, 0(subroutine)       #
+0048  00008067                 jalr x0, 0(ra)                  #
+
+
+004c  00000050 aprompt:        .word   prompt
+0050  61656c50 prompt:         .asciz  "Please enter a string: "
+0054  65206573
+0058  7265746e
+005c  73206120
+0060  6e697274
+0064  00203a67
+
+0068  0000006c alabel:         .word   label
+006c  69636544 label:          .asciz  "Decimal Digits: "
+0070  206c616d
+0074  69676944
+0078  203a7374
+007c  00000000
+
+0080  00000084 abuffer:        .word   buffer
+0084  00000000 buffer:         .zero   100
+00e4  00000000
+======================================================= Output
+Please enter a string: Aa1Bb2Cc3{+
+Decimal Digits: 123
+=========================================== Program statistics
+Input file name       = c03q08.a
+Instructions executed = 70 (decimal)
+Program size          = e8 (hex) 232 (decimal)
+Load point            = 0 (hex) 0 (decimal)
+Programmer            = Zach Mascetta

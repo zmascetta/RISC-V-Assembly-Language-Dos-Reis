@@ -1,4 +1,4 @@
-rv Version 3.5                        Tue Oct 28 17:13:35 2025
+rv Version 3.5                        Tue Oct 28 17:45:49 2025
 Zach Mascetta
 
 Header
@@ -52,7 +52,7 @@ Loc     Code         Source Code
 0054  00000000                 halt                            #
 
 0058  0062c863 subroutine_1:   blt t0, t1, 16(subroutine_1)    #
-005c  0072d463                 bge t0, t2, 12(subroutine_1)    #
+005c  0072d663                 bge t0, t2, 16(subroutine_1)    #
 0060  0202e293                 ori t0, t0, 0x20                #
 0064  00550023                 sb t0, 0(a0)                    #
 0068  00150513                 addi a0, a0, 1                  #
@@ -61,7 +61,7 @@ Loc     Code         Source Code
 0074  00008067                 jalr x0, 0(ra)                  #
 
 0078  0062c863 subroutine_2:   blt t0, t1, 16(subroutine_2)    #
-007c  0072d463                 bge t0, t2, 12(subroutine_2)    #
+007c  0072d663                 bge t0, t2, 16(subroutine_2)    #
 0080  0df2f293                 andi t0, t0, 0xdf               #
 0084  00550023                 sb t0, 0(a0)                    #
 0088  00150513                 addi a0, a0, 1                  #
@@ -98,13 +98,179 @@ Loc     Code         Source Code
 00f0  00000000 buffer:         .zero   100
 0150  00000000
 ======================================================= Output
-Please enter a string: Aa1Bb2Cc3{+
-String (subroutine_1): aa1bb2cc3{+
-String (subroutine_2): AA1BB2CC3{+
+addi>>>
+   0:                 addi t1, x0, 65                 # set lower bound for comparison to check for uppercase
+     <t1 = 0/41>
+addi>>>
+   4:                 addi t2, x0, 91                 # set upper bound for comparison to check for uppercase
+     <t2 = 0/5b>
+addi>>>
+   8:                 addi t3, x0, 10                 # set value to check if end of string
+     <t3 = 0/a>
+lw>>>
+   c:                 lw t4, aprompt                  # load prompt
+     <t4 = 0/9c>
+sout>>>
+  10:                 sout t4                         # display prompt
+
+Please enter a string: 
+lw>>>
+  14:                 lw a0, abuffer                  # load buffer for string
+     <a0 = 0/f0>
+sin>>>
+  18:                 sin a0                          # get string
+
+1aA
+lb>>>
+  1c:                 lb t0, 0(a0)                    # load first character of string
+     <t0 = 0/31>
+jal>>>
+  20:                 jal ra, subroutine_1            # jump to subr_1
+     <ra = 0/24>
+     <pc = 24/58>
+blt>>>
+  58: subroutine_1:   blt t0, t1, 16(subroutine_1)    # branch if less than/equal 65 +20
+addi>>>
+  68:                 addi a0, a0, 1                  # increment address by 1 byte
+     <a0 = f0/f1>
+lb>>>
+  6c:                 lb t0, 0(a0)                    # load new value
+     <t0 = 31/61>
+bne>>>
+  70:                 bne t0, t3, 0(subroutine_1)     # if value not 10 (newline), branch to beginning of subroutine
+blt>>>
+  58: subroutine_1:   blt t0, t1, 16(subroutine_1)    # branch if less than/equal 65 +20
+bge>>>
+  5c:                 bge t0, t2, 16(subroutine_1)    # branch if greater than 90 + 16
+addi>>>
+  68:                 addi a0, a0, 1                  # increment address by 1 byte
+     <a0 = f1/f2>
+lb>>>
+  6c:                 lb t0, 0(a0)                    # load new value
+     <t0 = 61/41>
+bne>>>
+  70:                 bne t0, t3, 0(subroutine_1)     # if value not 10 (newline), branch to beginning of subroutine
+blt>>>
+  58: subroutine_1:   blt t0, t1, 16(subroutine_1)    # branch if less than/equal 65 +20
+bge>>>
+  5c:                 bge t0, t2, 16(subroutine_1)    # branch if greater than 90 + 16
+ori>>>
+  60:                 ori t0, t0, 0x20                # transform to lowercase
+     <t0 = 41/61>
+sb>>>
+  64:                 sb t0, 0(a0)                    # store new value 
+     mem[f0] = a416131/a616131
+addi>>>
+  68:                 addi a0, a0, 1                  # increment address by 1 byte
+     <a0 = f2/f3>
+lb>>>
+  6c:                 lb t0, 0(a0)                    # load new value
+     <t0 = 61/a>
+bne>>>
+  70:                 bne t0, t3, 0(subroutine_1)     # if value not 10 (newline), branch to beginning of subroutine
+jalr>>>
+  74:                 jalr x0, 0(ra)                  # return to main
+     <x0 = 0/0>
+     <pc = 78/24>
+lw>>>
+  24:                 lw a0, abuffer                  # set a0 back to address of first char of string
+     <a0 = f3/f0>
+lw>>>
+  28:                 lw t5, asr1_label               # load label
+     <t5 = 0/b8>
+sout>>>
+  2c:                 sout t5                         # print label
+
+String (subroutine_1): 
+sout>>>
+  30:                 sout a0                         # print string
+
+1aa
+
+lb>>>
+  34:                 lb t0, 0(a0)                    # load first character of string
+     <t0 = a/31>
+addi>>>
+  38:                 addi t1, x0, 97                 # set lower bound for comparison to check for lowercase
+     <t1 = 41/61>
+addi>>>
+  3c:                 addi t2, x0, 122                # set upper bound for comparison to check for lowercase
+     <t2 = 5b/7a>
+jal>>>
+  40:                 jal ra, subroutine_2            # jump to subr_2
+     <ra = 24/44>
+     <pc = 44/78>
+blt>>>
+  78: subroutine_2:   blt t0, t1, 16(subroutine_2)    # branch if less than/equal 97, +20
+addi>>>
+  88:                 addi a0, a0, 1                  # increment address by 1 byte
+     <a0 = f0/f1>
+lb>>>
+  8c:                 lb t0, 0(a0)                    # load new value
+     <t0 = 31/61>
+bne>>>
+  90:                 bne t0, t3, 0(subroutine_2)     # if value not 10 (newline), branch to beginning of subroutine
+blt>>>
+  78: subroutine_2:   blt t0, t1, 16(subroutine_2)    # branch if less than/equal 97, +20
+bge>>>
+  7c:                 bge t0, t2, 16(subroutine_2)    # branch if greater than 112, +16
+andi>>>
+  80:                 andi t0, t0, 0xdf               # transform to uppercase
+     <t0 = 61/41>
+sb>>>
+  84:                 sb t0, 0(a0)                    # store new value 
+     mem[f0] = a616131/a614131
+addi>>>
+  88:                 addi a0, a0, 1                  # increment address by 1 byte
+     <a0 = f1/f2>
+lb>>>
+  8c:                 lb t0, 0(a0)                    # load new value
+     <t0 = 41/61>
+bne>>>
+  90:                 bne t0, t3, 0(subroutine_2)     # if value not 10 (newline), branch to beginning of subroutine
+blt>>>
+  78: subroutine_2:   blt t0, t1, 16(subroutine_2)    # branch if less than/equal 97, +20
+bge>>>
+  7c:                 bge t0, t2, 16(subroutine_2)    # branch if greater than 112, +16
+andi>>>
+  80:                 andi t0, t0, 0xdf               # transform to uppercase
+     <t0 = 61/41>
+sb>>>
+  84:                 sb t0, 0(a0)                    # store new value 
+     mem[f0] = a614131/a414131
+addi>>>
+  88:                 addi a0, a0, 1                  # increment address by 1 byte
+     <a0 = f2/f3>
+lb>>>
+  8c:                 lb t0, 0(a0)                    # load new value
+     <t0 = 41/a>
+bne>>>
+  90:                 bne t0, t3, 0(subroutine_2)     # if value not 10 (newline), branch to beginning of subroutine
+jalr>>>
+  94:                 jalr x0, 0(ra)                  # return to main
+     <x0 = 0/0>
+     <pc = 98/44>
+lw>>>
+  44:                 lw a0, abuffer                  # set a0 back to address of first char of string
+     <a0 = f3/f0>
+lw>>>
+  48:                 lw t5, asr2_label               # load label
+     <t5 = b8/d4>
+sout>>>
+  4c:                 sout t5                         # print label
+
+String (subroutine_2): 
+sout>>>
+  50:                 sout a0                         # print string
+
+1AA
+
+halt>>>
+  54:                 halt                            # end program
 
 =========================================== Program statistics
 Input file name       = c03q07.a
-Instructions executed = 149 (decimal)
+Instructions executed = 58 (decimal)
 Program size          = 154 (hex) 340 (decimal)
 Load point            = 0 (hex) 0 (decimal)
 Programmer            = Zach Mascetta

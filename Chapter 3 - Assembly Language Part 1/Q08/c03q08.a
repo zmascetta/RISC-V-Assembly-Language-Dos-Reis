@@ -1,0 +1,45 @@
+# Write and run an assembly language program that prompts for and reads in a string,
+# and passes its address to a subroutine via a0. 
+# Your subroutine should then display all and only the decimal digits in the string.
+# Test your program with "Aa1Bb2Cc3{+".
+
+#   a0 = buffer
+#   t0 = character from buffer
+#   t1 = lower bound for character check
+#   t2 = upper bound for character check
+#   t3 = 10 check for newline 
+#   t4 = prompt
+#   t5 = label
+
+                addi t1, x0, 48                 # set lower bound for comparison to check if digit
+                addi t2, x0, 57                 # set upper bound for comparison to check if digit
+                addi t3, x0, 10                 # set value to check if end of string
+                lw t4, aprompt                  # load prompt
+                sout t4                         # display prompt
+                lw a0, abuffer                  # load buffer for string
+                sin a0                          # get string
+                
+                lb t0, 0(a0)                    # load first character of string
+                lw t5, alabel               # load label
+                sout t5                         # print label
+                jal ra, subroutine              # jump to subr
+                
+                halt                            # end program
+
+subroutine:     blt t0, t1, 12(subroutine)       # branch if less than/equal 48 +20
+                bge t0, t2, 12(subroutine)       # branch if greater than 57 + 16
+                aout t0                         # print decimal value
+                addi a0, a0, 1                  # increment address by 1 byte
+                lb t0, 0(a0)                    # load new value
+                bne t0, t3, 0(subroutine)       # if value not 10 (newline), branch to beginning of subroutine
+                jalr x0, 0(ra)                  # return to main
+
+
+aprompt:        .word   prompt
+prompt:         .asciz  "Please enter a string: "
+
+alabel:         .word   label
+label:          .asciz  "Decimal Digits: "
+
+abuffer:        .word   buffer
+buffer:         .zero   100
