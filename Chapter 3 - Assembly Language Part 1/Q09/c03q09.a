@@ -16,26 +16,71 @@
 
 # s0 = prompt
 # s1 = label
-
-
-                lw s0, aprompt          # load prompt
-                sout s0                 # display prompt
+# s2 = space
+# s3 = sentinel value for subroutine
+                addi s3, x0, 10                 # set value to check if end of string
+                lw s2, aspace                   # load space
+                lw s0, aprompt                  # load prompt
+                sout s0                         # display prompt
                 lw a0, abuffer                  # load buffer for string
                 sin a0                          # get string
+                lw s1, alabel
+                sout s1
+                lb t0, 0(a0)                    # load first character of string
 
-subroutine: slti t1, t0, 48     # set if less than 48.
-            slti t2, t0, 59     # set if less than 59
-            blt t0, t1, 4       #
+                jal ra, subroutine              # jump to subr
+                
+                halt 
 
+# the logic here can be a bit confusing as the required result for the branch is a FALSE result.
+# First check to see if it is less than 59/71. Should be 1.
+# Second check to see if less than 48/65. Should be 0.
+# Branch if t2 >= t1. there are 3 scenarios where this is true
+# and only 1 where it is false.
+# If character is a digit, it will fail the first branch and have 48 subtracted.
+# If character is an uppercase letter, it will fail the second branch and have 55 subtracted.
 
-andi t0, 0x8
-andi t0, 0x4
-andi t0, 0x2
-andi t0, 0x1
+subroutine:     slti t1, t0, 59                 # set if less than 59. should be 1
+                slti t2, t0, 48                 # set if less than 48. should be 0
+                bge t2, t1, 16(subroutine)      # branch to next logic check
+                addi t0, t0, -48                # subtract 48 to get actual value
+
+                slti t1, t0, 71                 # set if less than 59. should be 1
+                slti t2, t0, 65                 # set if less than 48. should be 0
+                bge t2, t1, 32(subroutine)          # branch to binary printing
+                addi t0, t0, -55                # subtract 55 to get actual value
+
+                andi t3, t0, 0x8                # andi with 0x8 to check if 8's digit is 1
+                srli t3, t3, 3                  # shift right so only 8's prints
+                dout t3                         # print digit
+
+                andi t3, t0, 0x4                # andi with 0x4 to check if 4's digit is 1
+                srli t3, t3, 2                  # shift right so only 4's prints
+                dout t3                         # print digit
+
+                andi t3, t0, 0x2                # andi with 0x2 to check if 2's digit is 1
+                srli t3, t3, 1                  # shift right so only 2's prints
+                dout t3                         # print digit
+
+                andi t3, t0, 0x1                # andi with 0x1 to check if 1's digit is 1
+                dout t3                         # print digit
+                sout s2                         # print space
+
+                addi a0, a0, 1                  # increment address by 1 byte
+                lb t0, 0(a0)                    # load new value
+                bne t0, s3, 0(subroutine)       # if value not 10 (newline), branch to beginning of subroutine
+                jalr x0, 0(ra)                  # return to main
+
 
 
 aprompt:        .word   prompt
-prompt:         .asciz  "Enter a hex number (CAPITAL LETTERS ONLY)"
+prompt:         .asciz  "Enter a hex number (please use a capital letter if entering digits 10-15): "
 
-alabel:         .word label
-label:          .asciz "Binary Value:"
+alabel:         .word   label
+label:          .asciz "Binary Value: "
+
+aspace:         .word   space
+space:          .asciz  " "
+
+abuffer:        .word   buffer
+buffer:         .zero   100
