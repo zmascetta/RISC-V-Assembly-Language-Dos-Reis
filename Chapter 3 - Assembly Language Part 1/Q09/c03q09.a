@@ -1,0 +1,41 @@
+# Write and run an assembly language program that reads in a hex number and passes its address to a subroutine via a0.
+# Your subroutine should display the number in binary.
+# Test your program by entered 3210BCD.
+# Display the binary number with a space between each group of four bits.
+
+# NOTE: there are obviously more error checks that could be added to this program,
+# but for the sake of brevity, I'm only checking to ensure a digit and a capital letter
+# from A through F has been entered.
+
+# a0 = buffer
+
+# t0 = character from buffer
+# t1 = logic result for lower bound
+# t2 = logic result for upper bound
+# t3 = result of logic check
+
+# s0 = prompt
+# s1 = label
+
+
+                lw s0, aprompt          # load prompt
+                sout s0                 # display prompt
+                lw a0, abuffer                  # load buffer for string
+                sin a0                          # get string
+
+subroutine: slti t1, t0, 48     # set if less than 48.
+            slti t2, t0, 59     # set if less than 59
+            blt t0, t1, 4       #
+
+
+andi t0, 0x8
+andi t0, 0x4
+andi t0, 0x2
+andi t0, 0x1
+
+
+aprompt:        .word   prompt
+prompt:         .asciz  "Enter a hex number (CAPITAL LETTERS ONLY)"
+
+alabel:         .word label
+label:          .asciz "Binary Value:"
