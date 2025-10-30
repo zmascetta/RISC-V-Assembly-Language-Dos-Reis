@@ -1,0 +1,39 @@
+# Write and run an assembly language program which reads in a number 
+# and displays the number of 1-bits in its 32-bit binary representation.
+# Test your program with 0, 1, -1, 255, and -5000.
+
+# a0 = number
+# t0 = current digit
+# t1 = mask
+# t2 = counter/shift amount
+# t3 = running total
+# s0 = prompt
+# s1 = label
+
+                    lui t1, 0x80000             # init. mask for testing 1 in 32nd digit
+                    addi t2, x0, 31             # init. shift amount to 31
+                    addi t3, x0, 0              # init. running total to 0
+                    lw s0, aprompt              # load prompt
+                    sout s0                     # display prompt
+                    din a0                      # capture number
+                    jal ra, subroutine          # go to subroutine
+                    
+                    lw s1, alabel               # load label
+                    sout s1                     # print label
+                    dout t3                     # print number of 1's
+                    halt                        # end program
+
+ subroutine:        and t0, t1, a0              # use mask to check for 1
+                    srl t0, t0, t2              # shift to put value in ones place
+                    add t3, t3, t0              # add to current total
+                    srli t1, t1, 1              # shift mask by 1
+                    addi t2, t2, -1             # subtract 1 from shift amount
+                    bge t2, x0, 0(subroutine)   # loop while counter >= 0
+                    jalr x0, 0(ra)              # return to main
+
+
+aprompt:        .word       prompt
+prompt:         .asciz      "Please enter a number: "
+
+alabel:         .word       label
+label:          .asciz      "Number of 1's: "

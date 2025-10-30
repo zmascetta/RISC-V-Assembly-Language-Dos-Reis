@@ -1,0 +1,63 @@
+rv Version 3.5                        Thu Oct 30 15:16:19 2025
+Zach Mascetta
+
+Header
+R
+A 00000044
+A 00000068
+C
+
+Loc     Code         Source Code
+               # Wirte and run an assembly language program whic
+               # (with spaces separating the bits) and displays 
+               # Test your program by entering 0 1 0 1.
+
+               # a0 = buffer
+               # t0 = current character
+               # t1 = shift amount
+               # t2 = running total
+               # s0 = prompt
+               # s1 = label
+
+0000  00300313                     addi t1, x0, 3              #
+0004  00000393                     addi t2, x0, 0              #
+0008  0681a503                     lw a0, abuffer              #
+000c  0441a403                     lw s0, aprompt              #
+0010  0c040000                     sout s0                     #
+0014  14050000                     sin a0                      #
+0018  008000ef                     jal ra, subroutine          #
+001c  00000000                     halt                        #
+
+0020  00050283 subroutine:         lb t0, 0(a0)                #
+0024  fd028293                     addi t0, t0, -48            #
+0028  006292b3                     sll t0, t0, t1              #
+002c  007283b3                     add t2, t0, t2              #
+0030  00250513                     addi a0, a0, 2              #
+0034  fff30313                     addi t1, t1, -1             #
+0038  fe0354e3                     bge t1, x0, 0(subroutine)   #
+003c  08038000                     hout t2                     #
+0040  00008067                     jalr x0, 0(ra)              #
+
+
+0044  00000048 aprompt:        .word   prompt
+0048  61656c50 prompt:         .asciz  "Please enter a binary va
+004c  65206573
+0050  7265746e
+0054  62206120
+0058  72616e69
+005c  61762079
+0060  3a65756c
+0064  00000020
+
+0068  00000068 abuffer:        .word   abuffer
+006c  00000000 buffer:         .zero   10
+0074  00000000
+======================================================= Output
+Please enter a binary value: 0 1 0 1
+5
+=========================================== Program statistics
+Input file name       = c03q10.a
+Instructions executed = 38 (decimal)
+Program size          = 78 (hex) 120 (decimal)
+Load point            = 0 (hex) 0 (decimal)
+Programmer            = Zach Mascetta

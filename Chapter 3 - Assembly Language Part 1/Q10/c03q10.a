@@ -1,0 +1,36 @@
+# Wirte and run an assembly language program which reads in a four-bit binary number
+# (with spaces separating the bits) and displays its equivalent hex.
+# Test your program by entering 0 1 0 1.
+
+# a0 = buffer
+# t0 = current character
+# t1 = shift amount
+# t2 = running total
+# s0 = prompt
+# s1 = label
+
+                    addi t1, x0, 3              # init. shift amount to 3 to use for shifting/looping
+                    addi t2, x0, 0              # init. running total to 0
+                    lw a0, abuffer              # load buffer
+                    lw s0, aprompt              # load prompt
+                    sout s0                     # display prompt
+                    sin a0                      # capture number
+                    jal ra, subroutine          # jump to subroutine
+                    halt                        # end program
+
+subroutine:         lb t0, 0(a0)                # get digit
+                    addi t0, t0, -48            # subtract 48 to get actual value
+                    sll t0, t0, t1              # shift current value
+                    add t2, t0, t2              # add value to running total
+                    addi a0, a0, 2              # increment address by 2 bytes (skip space)
+                    addi t1, t1, -1             # decrement shift value by 1
+                    bge t1, x0, 0(subroutine)   # loop if shift amount isn't 0
+                    hout t2                     # print hex value
+                    jalr x0, 0(ra)              # return to program
+
+
+aprompt:        .word   prompt
+prompt:         .asciz  "Please enter a binary value: "
+
+abuffer:        .word   abuffer
+buffer:         .zero   10
